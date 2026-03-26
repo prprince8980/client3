@@ -45,8 +45,8 @@ function Login() {
     e.preventDefault();
 
     const url = isSignup
-      ? "http://localhost:5000/api/auth/signup"
-      : "http://localhost:5000/api/auth/login";
+      ? "http://client3-f45z.onrender.com/auth/signup"
+      : "http://client3-f45z.onrender.com/api/auth/login";
 
     const bodyData = isSignup
       ? formData
