@@ -1,0 +1,97 @@
+/* 🎮 Minecraft Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #87CEEB, #4CAF50);
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* 🧱 Header */
+.header {
+  text-align: center;
+  padding: 40px;
+}
+
+.title {
+  font-size: 32px;
+  color: #3b2f1e;
+  text-shadow:
+    2px 2px 0 #000,
+    4px 4px 0 #2e7d32,
+    6px 6px 0 #1b5e20;
+}
+
+.subtitle {
+  margin-top: 20px;
+  color: white;
+  text-shadow: 2px 2px 5px black;
+}
+
+/* 🎮 Main Panel */
+.container {
+  text-align: center;
+  margin-top: 30px;
+   text-align: "center";
+    padding: "40px";
+    background: "linear-gradient(180deg, #87CEEB, #4CAF50)";
+}
+
+/* 🧱 Counter Box */
+.counter-box {
+  background: #1b1b1b;
+  padding: 40px;
+  margin: 20px auto;
+  width: 250px;
+  border: 5px solid #4CAF50;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.count {
+  font-size: 60px;
+  color: #8BC34A;
+  text-shadow: 4px 4px 0 black;
+}
+
+/* 🟩 Buttons */
+.btn {
+  font-family: 'Press Start 2P', cursive;
+  padding: 12px 20px;
+  margin: 10px;
+  background: #8BC34A;
+  border: 4px solid #2e7d32;
+  color: #1b5e20;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #1b5e20;
+  transition: 0.1s;
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #1b5e20;
+}
+
+/* 🧱 Footer */
+.footer {
+  margin-top: 50px;
+  padding: 30px;
+  text-align: center;
+  background: linear-gradient(to top, #3e2723, #5d4037);
+  border-top: 6px solid #2e7d32;
+}
+
+.footer-text {
+  font-size: 16px;
+  color: #d7ccc8;
+  text-shadow:
+    2px 2px 0 #000,
+    4px 4px 0 #1b5e20,
+    6px 6px 0 #000;
+}
+
+.footer-sub {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #a5d6a7;
+  text-shadow: 2px 2px 4px black;
+}
