@@ -45,7 +45,7 @@ function Login() {
     e.preventDefault();
 
     const url = isSignup
-      ? "https://client3-f45z.onrender.com/auth/signup"
+      ? "https://client3-f45z.onrender.com/api/auth/signup"
       : "https://client3-f45z.onrender.com/api/auth/login";
 
     const bodyData = isSignup
