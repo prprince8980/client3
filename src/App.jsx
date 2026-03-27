@@ -1,19 +1,23 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Home from "./Home";
 import Welcome from "./Welcome";
-import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
+  const hasVisited = localStorage.getItem("visited");
+
   return (
     <Routes>
-      <Route path="/" element={<Welcome />} />
-      <Route path="/login" element={<Login />} />
-
+      {/* 👇 Condition here */}
       <Route
-        path="/home"
-        element={<Home />}
+        path="/"
+        element={
+          hasVisited ? <Navigate to="/home" /> : <Welcome />
+        }
       />
+
+      <Route path="/home" element={<Home />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
