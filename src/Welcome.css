@@ -1,0 +1,66 @@
+.welcome-page {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+/* Center content */
+.welcome-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+
+/* 🔥 Title animation */
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+/* Subtitle */
+.subtitle {
+  margin-top: 10px;
+  font-size: 18px;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 1s;
+}
+
+/* Button */
+.enter-btn {
+  margin-top: 30px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #00ffaa, #00ccff);
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 2s;
+  transition: 0.3s;
+}
+
+.enter-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
