@@ -32,11 +32,11 @@ function Login() {
       window.google.accounts.id.renderButton(
         document.getElementById("googleBtn"),
         {
-          theme: "filled_black",
+          theme: "outline",
           size: "large",
           text: "continue_with",
           shape: "pill",
-          width: 320,
+          width: 300,
         }
       );
     }
@@ -95,7 +95,6 @@ function Login() {
       } else {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        alert("Login successful");
         navigate("/home");
       }
     } catch (error) {
@@ -130,11 +129,6 @@ function Login() {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-
-      if (data.popup) {
-        alert(data.popup);
-      }
-
       navigate("/home");
     } catch (error) {
       alert("Google login server error");
@@ -154,121 +148,112 @@ function Login() {
 
   return (
     <div className="login-page">
-      <div className="stars"></div>
-      <div className="stars2"></div>
-      <div className="stars3"></div>
+      <div className="bg-shape bg-shape-1"></div>
+      <div className="bg-shape bg-shape-2"></div>
 
-      <div className={`auth-container ${isSignup ? "active" : ""}`}>
-        <div className="panel form-panel">
-          <div className="login-box">
-            <div className="cube-wrapper">
-              <div className="cube">
-                <div className="face front"></div>
-                <div className="face back"></div>
-                <div className="face left"></div>
-                <div className="face right"></div>
-                <div className="face top"></div>
-                <div className="face bottom"></div>
-              </div>
-            </div>
+      <div className={`auth-card ${isSignup ? "signup-mode" : ""}`}>
+        <div className="slider-tabs">
+          <button
+            className={!isSignup ? "active" : ""}
+            onClick={() => setIsSignup(false)}
+            type="button"
+          >
+            Login
+          </button>
+          <button
+            className={isSignup ? "active" : ""}
+            onClick={() => setIsSignup(true)}
+            type="button"
+          >
+            Sign Up
+          </button>
+          <div className={`tab-indicator ${isSignup ? "right" : ""}`}></div>
+        </div>
 
-            <h1 className="login-title">
-              {isSignup ? "Create Account" : "Welcome Back"}
-            </h1>
-
-            <p className="login-subtitle">
-              {isSignup
-                ? "Build your block world account"
-                : "Login and enter your galaxy world"}
-            </p>
-
-            <form onSubmit={handleSubmit} className="mobile-form">
-              {isSignup && (
-                <div className="input-group">
-                  <span className="input-icon">👤</span>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter full name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                </div>
-              )}
+        <div className="form-window">
+          <div className={`form-slider ${isSignup ? "slide-left" : ""}`}>
+            <form onSubmit={handleSubmit} className="form-panel">
+              <h2>Welcome Back</h2>
+              <p>Login to continue</p>
 
               <div className="input-group">
-                <span className="input-icon">📱</span>
                 <input
                   type="text"
                   name="phone"
-                  placeholder="Enter mobile number"
+                  placeholder="Mobile number"
                   value={formData.phone}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="input-group">
-                <span className="input-icon">🔒</span>
                 <input
                   type="password"
                   name="password"
-                  placeholder="Enter password"
+                  placeholder="Password"
                   value={formData.password}
                   onChange={handleChange}
                 />
               </div>
 
-              {isSignup && (
-                <div className="input-group">
-                  <span className="input-icon">✅</span>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  />
-                </div>
-              )}
-
-              <button type="submit" className="mobile-btn">
-                {isSignup ? "Create Account" : "Login Now"}
+              <button type="submit" className="main-btn">
+                Login
               </button>
+
+              <div className="divider">or continue with</div>
+              <div className="google-box">
+                <div id="googleBtn"></div>
+              </div>
             </form>
 
-            <div className="divider">
-              <span>OR CONTINUE WITH</span>
-            </div>
+            <form onSubmit={handleSubmit} className="form-panel">
+              <h2>Create Account</h2>
+              <p>Sign up and start your journey</p>
 
-            <div className="google-wrap">
-              <p className="google-text">Sign in using your Google account</p>
-              <div id="googleBtn"></div>
-            </div>
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <p className="switch-text">
-              {isSignup ? "Already have an account?" : "New here?"}
-              <span onClick={() => setIsSignup(!isSignup)}>
-                {isSignup ? " Login" : " Sign Up"}
-              </span>
-            </p>
-          </div>
-        </div>
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Mobile number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
 
-        <div className="panel info-panel">
-          <div className="info-content">
-            <h2>{isSignup ? "Join the Adventure" : "Hello, Explorer!"}</h2>
-            <p>
-              {isSignup
-                ? "Create an account and start building smart, creative, AI-powered experiences."
-                : "Login to continue your journey, manage your world, and unlock cool features."}
-            </p>
+              <div className="input-group">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <button
-              className="ghost-btn"
-              onClick={() => setIsSignup(!isSignup)}
-            >
-              {isSignup ? "Back to Login" : "Create Account"}
-            </button>
+              <div className="input-group">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <button type="submit" className="main-btn">
+                Sign Up
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -282,7 +267,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#020617",
+    background: "#f8fafc",
   },
 };
 
