@@ -32,14 +32,15 @@ function Login() {
       window.google.accounts.id.renderButton(
         document.getElementById("googleBtn"),
         {
-          theme: "outline",
+          theme: "filled_black",
           size: "large",
-          text: "signin_with",
-          shape: "rectangular",
+          text: "continue_with",
+          shape: "pill",
+          width: 320,
         }
       );
     }
-  }, []);
+  }, [navigate]);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,6 +48,11 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (isSignup && formData.password !== formData.confirmPassword) {
+      alert("Password and confirm password do not match");
+      return;
+    }
 
     setLoading(true);
 
@@ -152,80 +158,119 @@ function Login() {
       <div className="stars2"></div>
       <div className="stars3"></div>
 
-      <div className="login-box">
-        <div className="cube-wrapper">
-          <div className="cube">
-            <div className="face front"></div>
-            <div className="face back"></div>
-            <div className="face left"></div>
-            <div className="face right"></div>
-            <div className="face top"></div>
-            <div className="face bottom"></div>
+      <div className={`auth-container ${isSignup ? "active" : ""}`}>
+        <div className="panel form-panel">
+          <div className="login-box">
+            <div className="cube-wrapper">
+              <div className="cube">
+                <div className="face front"></div>
+                <div className="face back"></div>
+                <div className="face left"></div>
+                <div className="face right"></div>
+                <div className="face top"></div>
+                <div className="face bottom"></div>
+              </div>
+            </div>
+
+            <h1 className="login-title">
+              {isSignup ? "Create Account" : "Welcome Back"}
+            </h1>
+
+            <p className="login-subtitle">
+              {isSignup
+                ? "Build your block world account"
+                : "Login and enter your galaxy world"}
+            </p>
+
+            <form onSubmit={handleSubmit} className="mobile-form">
+              {isSignup && (
+                <div className="input-group">
+                  <span className="input-icon">👤</span>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter full name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
+
+              <div className="input-group">
+                <span className="input-icon">📱</span>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Enter mobile number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="input-group">
+                <span className="input-icon">🔒</span>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {isSignup && (
+                <div className="input-group">
+                  <span className="input-icon">✅</span>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
+
+              <button type="submit" className="mobile-btn">
+                {isSignup ? "Create Account" : "Login Now"}
+              </button>
+            </form>
+
+            <div className="divider">
+              <span>OR CONTINUE WITH</span>
+            </div>
+
+            <div className="google-wrap">
+              <p className="google-text">Sign in using your Google account</p>
+              <div id="googleBtn"></div>
+            </div>
+
+            <p className="switch-text">
+              {isSignup ? "Already have an account?" : "New here?"}
+              <span onClick={() => setIsSignup(!isSignup)}>
+                {isSignup ? " Login" : " Sign Up"}
+              </span>
+            </p>
           </div>
         </div>
 
-        <h1 className="login-title">
-          {isSignup ? "Mobile Signup" : "Login Portal"}
-        </h1>
+        <div className="panel info-panel">
+          <div className="info-content">
+            <h2>{isSignup ? "Join the Adventure" : "Hello, Explorer!"}</h2>
+            <p>
+              {isSignup
+                ? "Create an account and start building smart, creative, AI-powered experiences."
+                : "Login to continue your journey, manage your world, and unlock cool features."}
+            </p>
 
-        <p className="login-subtitle">
-          {isSignup
-            ? "Create your block world account"
-            : "Enter the galaxy world"}
-        </p>
-
-        <form onSubmit={handleSubmit} className="mobile-form">
-          {isSignup && (
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          )}
-
-          <input
-            type="text"
-            name="phone"
-            placeholder="Enter mobile number"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-
-          {isSignup && (
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Re-enter password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-          )}
-
-          <button type="submit" className="mobile-btn">
-            {isSignup ? "Sign Up" : "Login"}
-          </button>
-        </form>
-
-        <p className="switch-text">
-          {isSignup ? "Already have an account?" : "New here?"}
-          <span onClick={() => setIsSignup(!isSignup)}>
-            {isSignup ? " Login" : " Sign Up"}
-          </span>
-        </p>
-
-        <div className="divider">OR</div>
-
-        <div id="googleBtn"></div>
+            <button
+              className="ghost-btn"
+              onClick={() => setIsSignup(!isSignup)}
+            >
+              {isSignup ? "Back to Login" : "Create Account"}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -237,7 +282,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#000",
+    background: "#020617",
   },
 };
 
