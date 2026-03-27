@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import Loader from "./Loader";
 
 function Login() {
   const navigate = useNavigate();
 
   const [isSignup, setIsSignup] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -21,7 +24,8 @@ function Login() {
 
     if (window.google) {
       window.google.accounts.id.initialize({
-        client_id: "652826869991-eqag5nv5qe64sois5f9mp7digjum6d59.apps.googleusercontent.com",
+        client_id:
+          "652826869991-eqag5nv5qe64sois5f9mp7digjum6d59.apps.googleusercontent.com",
         callback: handleGoogleLogin,
       });
 
@@ -43,6 +47,8 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    setLoading(true);
 
     const url = isSignup
       ? "https://client3-f45z.onrender.com/api/auth/signup"
@@ -89,18 +95,25 @@ function Login() {
     } catch (error) {
       alert("Server connection error");
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function handleGoogleLogin(response) {
     try {
-      const res = await fetch("https://client3-f45z.onrender.com/api/auth/google-login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token: response.credential }),
-      });
+      setLoading(true);
+
+      const res = await fetch(
+        "https://client3-f45z.onrender.com/api/auth/google-login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: response.credential }),
+        }
+      );
 
       const data = await res.json();
 
@@ -120,7 +133,17 @@ function Login() {
     } catch (error) {
       alert("Google login server error");
       console.log(error);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  if (loading) {
+    return (
+      <div style={styles.loaderContainer}>
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -207,5 +230,15 @@ function Login() {
     </div>
   );
 }
+
+const styles = {
+  loaderContainer: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#000",
+  },
+};
 
 export default Login;
